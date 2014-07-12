@@ -1,0 +1,23 @@
+{
+  "name": "time-river.com",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jiyinyiyong/time-river.com.git"
+  },
+  "author": "jiyinyiyong",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jiyinyiyong/time-river.com/issues"
+  },
+  "homepage": "https://github.com/jiyinyiyong/time-river.com",
+  "devDependencies": {
+    "mission": "0.0.7-7",
+    "shelljs": "^0.3.0"
+  }
+}
