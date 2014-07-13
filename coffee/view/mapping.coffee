@@ -1,6 +1,7 @@
 
 events = require '../utils/events'
 time = require '../utils/time'
+math = require '../utils/math'
 
 objects = require '../model/objects'
 
@@ -15,16 +16,19 @@ module.exports = mapping =
   get: ->
     images
 
-catchLeaving = (item) ->
-  item.end = time.unix()
-  leaving.push item
-  time.delay 1000, =>
-    leaving.remove item
-
-objects.on (type, item) ->
-  if type is 'leaving'
-    catchLeaving item
-
+updateImages = ->
   images = []
+  for object in objects.get()
+    item =
+      type: object.type
+      x: object.position.x
+      y: object.position.y
+      s: object.start
+      text: object.text
+    item.a = math.blink item.x, item.y
+    images.push item
 
+do paint = ->
+  requestAnimationFrame paint
+  updateImages()
   mapping.emit()

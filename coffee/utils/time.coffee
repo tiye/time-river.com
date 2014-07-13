@@ -3,7 +3,7 @@ exports.delay = (time, cb) ->
   setTimeout cb, time
 
 exports.compact = ->
-  (new Date)[11..19]
+  (new Date).toJSON()[11..18]
 
 exports.unix = ->
   (new Date).getTime()

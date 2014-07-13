@@ -2,41 +2,38 @@
 events = require '../utils/events'
 number = require '../utils/number'
 time = require '../utils/time'
+config = require '../config'
 
 objects = []
 
 module.exports = model =
   on: events.on
   emit: events.emit
+  get: ->
+    objects
 
 do addSpot = ->
-  delay = number.random 200, 600
-  time.delay delay, addSpot
-
   spot =
     type: 'spot'
-    point: number.point()
+    position: number.point()
     start: time.unix()
+    duration: number.random 10000, 10000
 
   objects.push spot
-  model.emit spot
+  if objects.length < 10 ** 3
+    addSpot()
+
+timestamp =
+  type: 'time'
+  text: time.compact()
+  position: {x: 200, y: 130}
+  start: time.unix()
+objects.push timestamp
 
 addTime = ->
   time.delay 1000, addTime
+  timestamp.text = time.compact()
 
-  timestamp =
-    type: 'time'
-    point: number.point()
-    start: time.unix()
-
-  objects.push timestamp
   model.emit timestamp
 
 time.startAtIntegral addTime
-
-do clearObjects = ->
-  now = time.unix()
-  for object in objects
-    if (now - object.start) > 10000
-      objects.remove object
-      @emit 'leaving', object
